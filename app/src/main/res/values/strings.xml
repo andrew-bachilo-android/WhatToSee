@@ -1,0 +1,95 @@
+<resources>
+    <string name="app_name">WhatToSee</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="choose_movie">Выбрать фильм</string>
+    <string name="my_movies">Мои фильмы</string>
+    <string name="movie">Фильм</string>
+    <string name="tv_series">Сериал</string>
+    <string name="movies">Фильмы</string>
+    <string name="tv_series2">Сериалы</string>
+    <string name="genre">Жанр</string>
+    <string name="rating">Рейтинг</string>
+    <string name="find">Найти</string>
+    <string name="what_to_find">Что ищем?</string>
+    <string name="what_to_see">Что посмотреть?</string>
+    <string name="what_to_choose">Что будем искать?</string>
+    <string name="random_movie">Случайный фильм</string>
+    <string name="my_movie">Мои фильмы</string>
+    <string name="home">Домой</string>
+    <string name="choose_genre">Выбрать жанр</string>
+    <string name="choice_country">Выберите страну</string>
+    <string name="country">Страна</string>
+    <string name="year">Год</string>
+    <string name="choice_movie_Up">ВЫБРАТЬ ФИЛЬМ</string>
+    <string name="my_movie_up">МОИ ФИЛЬМЫ</string>
+
+    {"genres":[{"id":28,"name":"Action"},
+    //        {"id":12,"name":"Adventure"},
+    //        {"id":16,"name":"Animation"},
+    //        {"id":35,"name":"Comedy"},
+    //        {"id":80,"name":"Crime"},
+    //        {"id":99,"name":"Documentary"},
+    //        {"id":18,"name":"Drama"},
+    //        {"id":10751,"name":"Family"},
+    //        {"id":14,"name":"Fantasy"},
+    //        {"id":36,"name":"History"},
+    //        {"id":27,"name":"Horror"},
+    //        {"id":10402,"name":"Music"},
+    //        {"id":9648,"name":"Mystery"},
+    //        {"id":10749,"name":"Romance"},
+    //        {"id":878,"name":"Science Fiction"},
+    //        {"id":10770,"name":"TV Movie"},
+    //        {"id":53,"name":"Thriller"},
+    //        {"id":10752,"name":"War"},
+    //        {"id":37,"name":"Western"}]}
+    <string-array name="genres">
+        <item>Боевик</item>
+        <item>Приключения</item>
+        <item>Мультфильм</item>
+        <item>Комедия</item>
+        <item>Криминал</item>
+        <item>Документальный</item>
+        <item>Драмма</item>
+        <item>Семейный</item>
+        <item>Фэнтези</item>
+        <item>Исторический</item>
+        <item>Ужасы</item>
+        <item>Музыкальный</item>
+        <item>Детектив</item>
+        <item>Мелодрамма</item>
+        <item>Фантастика</item>
+        <item>Триллер</item>
+        <item>Военный</item>
+        <item>Вестерн</item>
+    </string-array>
+
+
+    <string-array name="genresTv">
+        <item>Комедия</item>
+        <item>Драмма</item>
+        <item>Детский</item>
+        <item>Мыльная опера</item>
+        <item>Фантастика и фэнтези</item>
+        <item>Новости</item>
+        <item>Реалити шоу</item>
+        <item>Ток шоу</item>
+        <item>Боевик и приключения</item>
+        <item>Мультфильм</item>
+        <item>Война и политика</item>
+        <item>Вестерн</item>
+        <item>Семейный</item>
+        <item>Криминал</item>
+        <item>Документальный</item>
+        <item>Детектив</item>
+    </string-array>
+
+    <string-array name="country">
+        <item>Любая</item>
+        <item>США, Великобритания</item>
+        <item>Россия</item>
+        <item>Германия</item>
+        <item>Франция</item>
+        <item>Испания</item>
+    </string-array>
+</resources>

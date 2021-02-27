@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/startFragment"
+        android:title="@string/home"
+        android:icon="@drawable/home"/>
+
+    <item
+        android:id="@+id/chooseMovieFragment"
+        android:title="@string/choose_movie"
+        android:icon="@drawable/search"/>
+
+    <item
+        android:id="@+id/favoritesFragment"
+        android:title="@string/my_movie"
+        android:icon="@drawable/my_movie"/>
+
+</menu>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.StartFragment"
+    android:orientation="vertical"
+    android:weightSum="2"
+    >
+
+    <RelativeLayout
+        android:id="@+id/btn_choose_movie"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/mov_bt">
+
+        <TextView
+            android:id="@+id/textBtnChoice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/choice_movie_Up"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            android:background="#FFFFFF"
+            android:textColor="#000000"
+            android:padding="10dp"
+            android:alpha="0.9"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/btn_my_movies"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/fav_bt">
+
+        <TextView
+            android:id="@+id/textBtnFav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/my_movie_up"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            android:background="#FFFFFF"
+            android:textColor="#000000"
+            android:padding="10dp"
+            android:alpha="0.9"/>
+    </RelativeLayout>
+
+
+</LinearLayout>
