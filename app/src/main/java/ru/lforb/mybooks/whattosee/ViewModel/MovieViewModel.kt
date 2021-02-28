@@ -58,7 +58,7 @@ class MovieViewModel(val repository: Repository) : ViewModel() {
 
     fun getData(key:String, lang:String,  adult:Boolean, video:Boolean, page:Int, year:String, vote:Int, genre: MutableList<String>, withoutGenre: MutableList<String>, withLang:String){
         scope.launch {
-            val data = repository.getData(key, lang,   adult, video, page, year, vote, genre, withoutGenre, withLang)
+            val data = repository.getData(key, lang,   adult, video, page, year ,vote, genre, withoutGenre, withLang)
             Log.d("!!!", data.toString())
             movieLive.postValue(data)
 

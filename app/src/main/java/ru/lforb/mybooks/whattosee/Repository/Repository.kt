@@ -16,7 +16,7 @@ class Repository @Inject constructor(val remoteModel: RemoteModel, val localMode
     }
 
     suspend fun getTvData(key:String, lang:String, year:String, adult:Boolean, video:Boolean, page:Int, vote:Int, genre: MutableList<String>, withoutGenre: MutableList<String>, withLang:String): MyMovie {
-        var movieList = remoteModel.getTvRemoteData(key, lang, year, adult, video, page, vote, genre, withoutGenre, withLang)
+        var movieList = remoteModel.getTvRemoteData(key, lang, year, adult, video, page, vote,  genre, withoutGenre, withLang)
         Log.d("!!!", movieList.toString())
         return movieList
     }

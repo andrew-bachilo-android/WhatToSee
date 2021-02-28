@@ -28,9 +28,10 @@ class RandomMovieFragment : Fragment() {
     private val binding get() = _binding!!
 
     var API_KEY = "f31f6294f41a3b44682936d762ffafad"
+
     var URL_IMG = "https://image.tmdb.org/t/p/w780"
     lateinit var viewModel: MovieViewModel
-    private var movies = mutableListOf<MyMovie>()
+    private var movies = mutableListOf<Movie>()
     private var tv = mutableListOf<MyMovie>()
     private var myText: TextView? = null
     private var myTextYear: TextView? = null
@@ -54,11 +55,8 @@ class RandomMovieFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("flat", viewModel.rating.toString())
-        Log.d("flat", viewModel.genre.toString())
-        Log.d("flat", viewModel.genreEx.toString())
 
-        var rnds = (1..10).random()
+        var rnds = 1
         myText = requireActivity().findViewById<TextView>(R.id.text1)
         myTextYear = requireActivity().findViewById<TextView>(R.id.textViewYear)
         myPoster = requireActivity().findViewById<ImageView>(R.id.poster)
@@ -69,14 +67,20 @@ class RandomMovieFragment : Fragment() {
             viewModel.getData(API_KEY, "ru-Ru",  false, false, rnds, viewModel.year, viewModel.rating, viewModel.genre, viewModel.genreEx, viewModel.country)
 
         }else{
-            viewModel.getTvData(API_KEY, "ru-Ru", viewModel.year, false, false, rnds, viewModel.rating, viewModel.genre, viewModel.genreEx, viewModel.country)
+            viewModel.getTvData(API_KEY, "ru-Ru", viewModel.year, false, false, rnds, viewModel.rating,  viewModel.genre, viewModel.genreEx, viewModel.country)
         }
 
         viewModel.movieLive.observe(activity as MainActivity, Observer {
             movies.clear()
-            movies.add(it)
-            if (it.results.size > 0){
-                rndMovie = (0 until  it.results.size).random()
+            tv.clear()
+            tv.add(it)
+            for(i in tv[0].results){
+                if(i.overview.length > 3){
+                    movies.add(i)
+                }
+            }
+            if (movies.size > 0){
+                rndMovie = (0 until  movies.size).random()
 
                 if(viewModel.movieType.equals("movie")){
                     myText?.text = it.results[rndMovie].title
@@ -98,8 +102,13 @@ class RandomMovieFragment : Fragment() {
 
                 progressBar.visibility = GONE
             }else{
-                myText?.text = "Ничего не найдено"
-                myTextYear?.text = "Попробуйте еще раз"
+                if(viewModel.movieType.equals("movie")){
+
+                    viewModel.getData(API_KEY, "ru-Ru",  false, false, rnds, viewModel.year, viewModel.rating, viewModel.genre, viewModel.genreEx, viewModel.country)
+
+                }else{
+                    viewModel.getTvData(API_KEY, "ru-Ru", viewModel.year, false, false, rnds, viewModel.rating,  viewModel.genre, viewModel.genreEx, viewModel.country)
+                }
             }
 
 
@@ -107,25 +116,25 @@ class RandomMovieFragment : Fragment() {
 
 
         binding.btn.setOnClickListener {
-
-            if (movies[0].results.size > 1){
-
+            Log.d("222", movies.size.toString())
+            Log.d("222", rndMovie.toString())
+            if (movies.size > 1){
                 try {
-                    movies[0].results.removeAt(rndMovie)
-                    rndMovie = (0 until movies[0].results.size).random()
+                    movies.removeAt(rndMovie)
+                    rndMovie = (0 until movies.size).random()
                     Picasso.get ()
-                        .load (URL_IMG.plus(movies[0].results[rndMovie].poster_path))
+                        .load (URL_IMG.plus(movies[rndMovie].poster_path))
                         .placeholder (R.drawable.movie)
                         .error (R.drawable.error_movie)
                         .into (myPoster);
-                    binding.textOverview.text = movies[0].results[rndMovie].overview
-                    binding.textVote.text = movies[0].results[rndMovie].vote_average.toString()
+                    binding.textOverview.text = movies[rndMovie].overview
+                    binding.textVote.text = movies[rndMovie].vote_average.toString()
                     if (viewModel.movieType.equals("tv")){
-                       myText?.text = movies[0].results[rndMovie].name
-                        myTextYear?.text = movies[0].results[rndMovie].first_air_date.split("-")[0]
+                       myText?.text = movies[rndMovie].name
+                        myTextYear?.text = movies[rndMovie].first_air_date.split("-")[0]
                     }else{
-                        myText?.text = movies[0].results[rndMovie].title
-                        myTextYear?.text = movies[0].results[rndMovie].release_date.split("-")[0]
+                        myText?.text = movies[rndMovie].title
+                        myTextYear?.text = movies[rndMovie].release_date.split("-")[0]
                     }
 
                 }
@@ -134,7 +143,7 @@ class RandomMovieFragment : Fragment() {
                 }
 
             }else{
-                rnds = (1..movies[0].total_pages).random()
+                rnds = (1..tv[0].total_pages).random()
                 if(viewModel.movieType.equals("movie")){
                     viewModel.getData(API_KEY, "ru-Ru",  false, false, rnds,  viewModel.year, viewModel.rating, viewModel.genre, viewModel.genreEx, viewModel.country)
                 }else{
@@ -146,10 +155,10 @@ class RandomMovieFragment : Fragment() {
 
         binding.btn2.setOnClickListener {
             if(viewModel.movieType.equals("tv")){
-                val a = Movie("2020", movies[0].results[rndMovie].id, movies[0].results[rndMovie].name, movies[0].results[rndMovie].overview, movies[0].results[rndMovie].poster_path, "2020","title", movies[0].results[rndMovie].vote_average, 0)
+                val a = Movie("2020", movies[rndMovie].id, movies[rndMovie].name, movies[rndMovie].overview, movies[rndMovie].poster_path, "2020","title", movies[rndMovie].vote_average, 0)
                 viewModel.insertMovie(a)
             }else{
-                val a = Movie("2020",movies[0].results[rndMovie].id, "name", movies[0].results[rndMovie].overview, movies[0].results[rndMovie].poster_path,"2020", movies[0].results[rndMovie].title, movies[0].results[rndMovie].vote_average, 1)
+                val a = Movie("2020",movies[rndMovie].id, "name", movies[rndMovie].overview, movies[rndMovie].poster_path,"2020", movies[rndMovie].title, movies[rndMovie].vote_average, 1)
                 viewModel.insertMovie(a)
             }
 

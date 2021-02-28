@@ -9,6 +9,7 @@
 
     <style name="CustomTabStyle" parent="Base.Widget.Design.TabLayout">
         <item name="android:textSize">18sp</item>
+        <item name="android:layout_margin">10dp</item>
 
     </style>
 
