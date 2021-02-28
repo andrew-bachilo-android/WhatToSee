@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
@@ -56,8 +57,8 @@ class RandomMovieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var rnds = 1
-        myText = requireActivity().findViewById<TextView>(R.id.text1)
+        var rnds = (1..10).random()
+        myText = requireActivity().findViewById<TextView>(R.id.textTitle)
         myTextYear = requireActivity().findViewById<TextView>(R.id.textViewYear)
         myPoster = requireActivity().findViewById<ImageView>(R.id.poster)
         progressBar = requireActivity().findViewById<ProgressBar>(R.id.progressBar)
@@ -115,9 +116,7 @@ class RandomMovieFragment : Fragment() {
         })
 
 
-        binding.btn.setOnClickListener {
-            Log.d("222", movies.size.toString())
-            Log.d("222", rndMovie.toString())
+        binding.btnNext.setOnClickListener {
             if (movies.size > 1){
                 try {
                     movies.removeAt(rndMovie)
@@ -153,7 +152,7 @@ class RandomMovieFragment : Fragment() {
 
         }
 
-        binding.btn2.setOnClickListener {
+        binding.btnFavorite.setOnClickListener {
             if(viewModel.movieType.equals("tv")){
                 val a = Movie("2020", movies[rndMovie].id, movies[rndMovie].name, movies[rndMovie].overview, movies[rndMovie].poster_path, "2020","title", movies[rndMovie].vote_average, 0)
                 viewModel.insertMovie(a)
@@ -161,7 +160,7 @@ class RandomMovieFragment : Fragment() {
                 val a = Movie("2020",movies[rndMovie].id, "name", movies[rndMovie].overview, movies[rndMovie].poster_path,"2020", movies[rndMovie].title, movies[rndMovie].vote_average, 1)
                 viewModel.insertMovie(a)
             }
-
+            Toast.makeText(activity,"Добавлено в 'Мои фильмы'", Toast.LENGTH_SHORT).show()
         }
 
         binding.btnOver.setOnClickListener {

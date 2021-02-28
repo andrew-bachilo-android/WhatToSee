@@ -12,7 +12,7 @@
 
 
     <TextView
-        android:id="@+id/text1"
+        android:id="@+id/textTitle"
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
 
     <TextView
         android:id="@+id/textViewYear"
-        android:layout_below="@id/text1"
+        android:layout_below="@id/textTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -60,13 +60,13 @@
         android:layout_alignParentBottom="true">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn"
+            android:id="@+id/btnNext"
             android:clickable="true"
             android:focusable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            app:maxImageSize="50dp"
+            app:maxImageSize="40dp"
             android:src="@drawable/ic_next"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="10dp"
@@ -79,19 +79,19 @@
             android:focusable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:maxImageSize="50dp"
+            app:maxImageSize="40dp"
             android:layout_centerInParent="true"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:src="@drawable/ic_overview"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn2"
+            android:id="@+id/btnFavorite"
             android:clickable="true"
             android:focusable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:maxImageSize="50dp"
+            app:maxImageSize="40dp"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="30dp"
             android:layout_marginBottom="10dp"
