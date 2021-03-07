@@ -29,10 +29,6 @@ class MovieViewModel(val repository: Repository) : ViewModel() {
 
     var year = ""
 
-
-
-
-
     var favoriteMovie = mutableListOf<Movie>()
 
     var favoriteTv = mutableListOf<Movie>()
@@ -54,8 +50,6 @@ class MovieViewModel(val repository: Repository) : ViewModel() {
     }
 
 
-
-
     fun getData(key:String, lang:String,  adult:Boolean, video:Boolean, page:Int, year:String, vote:Int, genre: MutableList<String>, withoutGenre: MutableList<String>, withLang:String){
         scope.launch {
             val data = repository.getData(key, lang,   adult, video, page, year ,vote, genre, withoutGenre, withLang)
@@ -73,6 +67,7 @@ class MovieViewModel(val repository: Repository) : ViewModel() {
 
         }
     }
+
     fun insertMovie(newMovie:Movie){
         scope.launch {
             repository.insertMovie(newMovie)

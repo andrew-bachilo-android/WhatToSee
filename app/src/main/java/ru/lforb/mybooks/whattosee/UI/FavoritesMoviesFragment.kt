@@ -47,8 +47,6 @@ class FavoritesMoviesFragment : Fragment() {
         adapter = FavoriteAdapter(viewModel.favoriteMovie)
         binding.recyclerFavoriteMovie.adapter = adapter
         binding.recyclerFavoriteMovie.layoutManager = GridLayoutManager(context,2)
-
-
     }
 
 

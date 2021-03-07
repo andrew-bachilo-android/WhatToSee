@@ -27,21 +27,13 @@ import ru.lforb.mybooks.whattosee.databinding.FragmentRandomMovieBinding
 class RandomMovieFragment : Fragment() {
     private var _binding: FragmentRandomMovieBinding? = null
     private val binding get() = _binding!!
-
-    var API_KEY = "f31f6294f41a3b44682936d762ffafad"
-
-    var URL_IMG = "https://image.tmdb.org/t/p/w780"
+    private var API_KEY = "f31f6294f41a3b44682936d762ffafad"
+    private var URL_IMG = "https://image.tmdb.org/t/p/w780"
     lateinit var viewModel: MovieViewModel
     private var movies = mutableListOf<Movie>()
     private var tv = mutableListOf<MyMovie>()
-    private var myText: TextView? = null
-    private var myTextYear: TextView? = null
-    private var myPoster: ImageView? = null
-    private lateinit var progressBar: ProgressBar
     var rndMovie = 0
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    var rnds = (1..10).random()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,21 +49,10 @@ class RandomMovieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var rnds = (1..10).random()
-        myText = requireActivity().findViewById<TextView>(R.id.textTitle)
-        myTextYear = requireActivity().findViewById<TextView>(R.id.textViewYear)
-        myPoster = requireActivity().findViewById<ImageView>(R.id.poster)
-        progressBar = requireActivity().findViewById<ProgressBar>(R.id.progressBar)
-
-        if(viewModel.movieType.equals("movie")){
-
-            viewModel.getData(API_KEY, "ru-Ru",  false, false, rnds, viewModel.year, viewModel.rating, viewModel.genre, viewModel.genreEx, viewModel.country)
-
-        }else{
-            viewModel.getTvData(API_KEY, "ru-Ru", viewModel.year, false, false, rnds, viewModel.rating,  viewModel.genre, viewModel.genreEx, viewModel.country)
-        }
+        getData()
 
         viewModel.movieLive.observe(activity as MainActivity, Observer {
+            Log.d("mmm", it.toString())
             movies.clear()
             tv.clear()
             tv.add(it)
@@ -80,87 +61,16 @@ class RandomMovieFragment : Fragment() {
                     movies.add(i)
                 }
             }
-            if (movies.size > 0){
-                rndMovie = (0 until  movies.size).random()
-
-                if(viewModel.movieType.equals("movie")){
-                    myText?.text = it.results[rndMovie].title
-                    myTextYear?.text = it.results[rndMovie].release_date.split("-")[0]
-                }else{
-                    myText?.text = it.results[rndMovie].name
-                    myTextYear?.text = it.results[rndMovie].first_air_date.split("-")[0]
-                }
-
-                binding.textOverview.text = it.results[rndMovie].overview
-                binding.textVote.text = it.results[rndMovie].vote_average.toString()
-
-                Picasso.get ()
-                    .load (URL_IMG.plus(it.results[rndMovie].poster_path))
-                    .placeholder (R.drawable.movie)
-                    .error (R.drawable.error_movie)
-                    .into (myPoster);
-
-
-                progressBar.visibility = GONE
-            }else{
-                if(viewModel.movieType.equals("movie")){
-
-                    viewModel.getData(API_KEY, "ru-Ru",  false, false, rnds, viewModel.year, viewModel.rating, viewModel.genre, viewModel.genreEx, viewModel.country)
-
-                }else{
-                    viewModel.getTvData(API_KEY, "ru-Ru", viewModel.year, false, false, rnds, viewModel.rating,  viewModel.genre, viewModel.genreEx, viewModel.country)
-                }
-            }
-
-
+           displayRandomMovie()
         })
 
-
         binding.btnNext.setOnClickListener {
-            if (movies.size > 1){
-                try {
-                    movies.removeAt(rndMovie)
-                    rndMovie = (0 until movies.size).random()
-                    Picasso.get ()
-                        .load (URL_IMG.plus(movies[rndMovie].poster_path))
-                        .placeholder (R.drawable.movie)
-                        .error (R.drawable.error_movie)
-                        .into (myPoster);
-                    binding.textOverview.text = movies[rndMovie].overview
-                    binding.textVote.text = movies[rndMovie].vote_average.toString()
-                    if (viewModel.movieType.equals("tv")){
-                       myText?.text = movies[rndMovie].name
-                        myTextYear?.text = movies[rndMovie].first_air_date.split("-")[0]
-                    }else{
-                        myText?.text = movies[rndMovie].title
-                        myTextYear?.text = movies[rndMovie].release_date.split("-")[0]
-                    }
-
-                }
-                catch (e:Exception){
-                    Log.d("222", e.toString())
-                }
-
-            }else{
-                rnds = (1..tv[0].total_pages).random()
-                if(viewModel.movieType.equals("movie")){
-                    viewModel.getData(API_KEY, "ru-Ru",  false, false, rnds,  viewModel.year, viewModel.rating, viewModel.genre, viewModel.genreEx, viewModel.country)
-                }else{
-                    viewModel.getTvData(API_KEY, "ru-Ru", viewModel.year, false, false, rnds, viewModel.rating, viewModel.genre, viewModel.genreEx, viewModel.country)
-                }
-            }
-
+            movies.removeAt(rndMovie)
+            displayRandomMovie()
         }
 
         binding.btnFavorite.setOnClickListener {
-            if(viewModel.movieType.equals("tv")){
-                val a = Movie("2020", movies[rndMovie].id, movies[rndMovie].name, movies[rndMovie].overview, movies[rndMovie].poster_path, "2020","title", movies[rndMovie].vote_average, 0)
-                viewModel.insertMovie(a)
-            }else{
-                val a = Movie("2020",movies[rndMovie].id, "name", movies[rndMovie].overview, movies[rndMovie].poster_path,"2020", movies[rndMovie].title, movies[rndMovie].vote_average, 1)
-                viewModel.insertMovie(a)
-            }
-            Toast.makeText(activity,"Добавлено в 'Мои фильмы'", Toast.LENGTH_SHORT).show()
+            addFavorite()
         }
 
         binding.btnOver.setOnClickListener {
@@ -170,10 +80,61 @@ class RandomMovieFragment : Fragment() {
         binding.btnCloseOver.setOnClickListener {
             binding.overviewLayout.visibility = GONE
         }
+    }
 
+    fun getData(){
+        if(viewModel.movieType.equals("movie")){
 
+            viewModel.getData(API_KEY, "ru-Ru",  false, false, rnds, viewModel.year, viewModel.rating, viewModel.genre, viewModel.genreEx, viewModel.country)
+
+        }else{
+            viewModel.getTvData(API_KEY, "ru-Ru", viewModel.year, false, false, rnds, viewModel.rating,  viewModel.genre, viewModel.genreEx, viewModel.country)
+        }
 
     }
 
+    fun addFavorite(){
+        if(viewModel.movieType.equals("tv")){
+            val a = Movie("2020", movies[rndMovie].id, movies[rndMovie].name, movies[rndMovie].overview, movies[rndMovie].poster_path, "2020","title", movies[rndMovie].vote_average, 0)
+            viewModel.insertMovie(a)
+        }else{
+            val a = Movie("2020",movies[rndMovie].id, "name", movies[rndMovie].overview, movies[rndMovie].poster_path,"2020", movies[rndMovie].title, movies[rndMovie].vote_average, 1)
+            viewModel.insertMovie(a)
+        }
+        Toast.makeText(activity,"Добавлено в 'Мои фильмы'", Toast.LENGTH_SHORT).show()
+    }
+
+    fun displayRandomMovie(){
+        if (movies.size > 1){
+            try {
+                rndMovie = (0 until  movies.size).random()
+
+                if(viewModel.movieType.equals("movie")){
+                    binding.textTitle.text = movies[rndMovie].title
+                    binding.textViewYear.text = movies[rndMovie].release_date.split("-")[0]
+                }else{
+                    binding.textTitle.text = movies[rndMovie].name
+                    binding.textViewYear.text = movies[rndMovie].first_air_date.split("-")[0]
+                }
+
+                binding.textOverview.text = movies[rndMovie].overview
+                binding.textVote.text = movies[rndMovie].vote_average.toString()
+
+                Picasso.get ()
+                    .load (URL_IMG.plus(movies[rndMovie].poster_path))
+                    .placeholder (R.drawable.movie)
+                    .error (R.drawable.error_movie)
+                    .into (binding.poster);
+                binding.progressBar.visibility = GONE
+            }
+            catch (e:Exception){
+                Log.d("222", e.toString())
+            }
+
+        }else{
+            rnds = (1..tv[0].total_pages).random()
+            getData()
+        }
+    }
 
 }

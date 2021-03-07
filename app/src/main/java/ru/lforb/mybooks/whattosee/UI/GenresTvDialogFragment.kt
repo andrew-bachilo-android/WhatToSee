@@ -41,11 +41,7 @@ class GenresTvDialogFragment : DialogFragment() {
                         dialog, which, isChecked ->
                     checkedItems[which] = isChecked
                 }
-                .setPositiveButton("Готово"
-                ) {
-                        dialog, id ->
-                    // User clicked OK, so save the selectedItems results somewhere
-
+                .setPositiveButton("Готово") { dialog, id ->
                     if(viewModel.flag){
                         for (i in stringArray.indices) {
                             val checked = checkedItems[i]
@@ -68,16 +64,12 @@ class GenresTvDialogFragment : DialogFragment() {
                                         13 ->  "80"
                                         14 ->  "99"
                                         else -> "9648"
-
                                     }
                                 )
-
                                 genresBuilder.append(stringArray[i] + "  ")
-                                Log.i("Dialog", stringArray[i])
                             }
                         }
                         viewModel.genreChoice.postValue(genresBuilder.toString())
-                        Log.d("flag", viewModel.genre.toString())
                     }else{
                         for (i in stringArray.indices) {
                             val checked = checkedItems[i]
@@ -100,19 +92,14 @@ class GenresTvDialogFragment : DialogFragment() {
                                         13 ->  "80"
                                         14 ->  "99"
                                         else -> "9648"
-
                                     }
                                 )
 
                                 genresBuilder.append(stringArray[i] + "  ")
-                                Log.i("Dialog", stringArray[i])
                             }
                         }
                         viewModel.genreChoiceEx.postValue(genresBuilder.toString())
-                        Log.d("flag", viewModel.genreEx.toString())
                     }
-
-
                 }
                 .setNegativeButton("Отмена") {
                         dialog, _ ->  dialog.cancel()

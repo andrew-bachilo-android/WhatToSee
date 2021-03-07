@@ -29,13 +29,8 @@ import java.util.*
 class ChooseMovieFragment : Fragment() {
     private var _binding: FragmentChooseMovieBinding? = null
     private val binding get() = _binding!!
-
     lateinit var navController: NavController
     lateinit var viewModel: MovieViewModel
-    private var textGenreItems: TextView? = null
-    private var textGenreItems2: TextView? = null
-    var genreList = mutableListOf<String>()
-    var genreList2 = StringBuilder()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,39 +50,23 @@ class ChooseMovieFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        textGenreItems = requireActivity().findViewById<TextView>(R.id.textGenreItems)
-        textGenreItems2 = requireActivity().findViewById<TextView>(R.id.textGenreItems2)
         navController = findNavController()
 
+        //Radio group movie type
 
-        Log.d("flag", viewModel.movieType.toString())
         binding.radioGroup.setOnCheckedChangeListener { radioGroup, i ->
            if (i == R.id.movies_radio) {
                viewModel.movieType = "movie"
-               textGenreItems?.text = ""
-               textGenreItems2?.text = ""
-               Log.d("flag", viewModel.movieType.toString())
-
+               binding.textGenreItems.text = ""
+               binding.textGenreItems2.text = ""
             }else{
                viewModel.movieType = "tv"
-               textGenreItems?.text = ""
-               textGenreItems2?.text = ""
-               Log.d("flag", viewModel.movieType.toString())
+               binding.textGenreItems.text = ""
+               binding.textGenreItems2.text = ""
            }
-//
         }
 
-
-
-            binding.btnShowMovie.setOnClickListener {
-
-            viewModel.rating = binding.ratingBar.rating.toInt()
-
-            (activity as MainActivity).navController.navigate(R.id.randomMovieFragment)
-
-
-
-        }
+        // Dialog genre items
 
         binding.buttonAlertGenre.setOnClickListener {
             viewModel.flag = true
@@ -102,9 +81,9 @@ class ChooseMovieFragment : Fragment() {
                 val manager = (activity as MainActivity).supportFragmentManager
                 myDialogFragment.show(manager, "myDialog")
             }
-
-
         }
+
+        // Dialog without genres items
 
         binding.buttonAlertGenre2.setOnClickListener {
             viewModel.flag = false
@@ -121,14 +100,7 @@ class ChooseMovieFragment : Fragment() {
 
         }
 
-        viewModel.genreChoice.observe(activity as MainActivity, Observer {
-            textGenreItems?.text = it.toString()
-        })
-
-        viewModel.genreChoiceEx.observe(activity as MainActivity, Observer {
-            textGenreItems2?.text = it.toString()
-        })
-
+        //Spinner countries
 
         binding.spinnerCountry.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -140,16 +112,13 @@ class ChooseMovieFragment : Fragment() {
                     4 -> viewModel.country = "fr"
                     5 -> viewModel.country = "es"
                 }
-
-
             }
-
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
-
         }
 
+        //Spinner year
 
         val year = Calendar.getInstance().get(Calendar.YEAR)
         viewModel.years.add("Любой")
@@ -157,17 +126,12 @@ class ChooseMovieFragment : Fragment() {
             viewModel.years.add(i.toString())
         }
 
-
         val adapter = ArrayAdapter(
-            activity as MainActivity, // Context
-            android.R.layout.simple_spinner_item, // Layout
-            viewModel.years // Array
+            activity as MainActivity,
+            android.R.layout.simple_spinner_item,
+            viewModel.years
         )
-
-
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
-
-
         binding.spinnerYear.adapter = adapter;
         binding.spinnerYear.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent:AdapterView<*>, view: View?, position: Int, id: Long){
@@ -175,25 +139,33 @@ class ChooseMovieFragment : Fragment() {
                     0 -> viewModel.year = ""
                     else -> viewModel.year = "${parent.getItemAtPosition(position)}-01-01"
                 }
-
             }
-
             override fun onNothingSelected(parent: AdapterView<*>){
 
             }
         }
 
 
+        viewModel.genreChoice.observe(activity as MainActivity, Observer {
+            binding.textGenreItems.text = it.toString()
+        })
 
+        viewModel.genreChoiceEx.observe(activity as MainActivity, Observer {
+            binding.textGenreItems2.text = it.toString()
+        })
 
+        binding.btnShowMovie.setOnClickListener {
+            viewModel.rating = binding.ratingBar.rating.toInt()
+            (activity as MainActivity).navController.navigate(R.id.randomMovieFragment)
+        }
     }
 
     override fun onStart() {
         super.onStart()
         viewModel.genre.clear()
         viewModel.genreEx.clear()
-        textGenreItems?.text = ""
-        textGenreItems2?.text = ""
+        binding.textGenreItems.text = ""
+        binding.textGenreItems2.text = ""
     }
 
 }

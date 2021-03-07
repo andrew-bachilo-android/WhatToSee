@@ -41,34 +41,5 @@ data class Movie(
     val isMovie:Int
 )
 
-//data class Tv(
-//    val id:Int,
-//    val name:String,
-//    val overview:String,
-//    val poster_path:String,
-//    val vote_average:Double
-//)
-//
-//
-//data class MyTv(
-//    val page:Int,
-//    val results:MutableList<Tv>,
-//    val total_pages:Int,
-//    val total_results:Int
-//
-//
-//)
-//{"backdrop_path":"/1s5LAbi8udSIIc5AghjwuKfy87i.jpg",
-//    "first_air_date":"2021-01-10",
-//    "genre_ids":[16,35,18],
-//    "id":110070,
-//    "name":"Хоримия",
-//    "origin_country":["JP"],
-//    "original_language":"ja",
-//    "original_name":"ホリミヤ",
-//    "overview":"На первый взгляд может показаться, что Хори — обыкновенная девушка-подросток, но внешность бывает обманчива. В то время, как родители трудятся на работе, героине остаются все хлопоты по дому, а также забота о младшем брате. Из-за постоянной занятости у неё просто не остаётся времени на то, чтобы насладиться прелестями подростковой жизни. Вскоре она знакомится с Миямурой, который также не показывает в школе настоящего себя. Он кажется недружелюбным тихоней, но за пределами стен школы оказывается абсолютно другим человеком. Так, у этой парочки находится много общего, и постепенно они начинают сближаться.",
-////    "popularity":76.484,
-//    "poster_path":"/6AZTMdxKKLQcoVQJAQcZgNdanmP.jpg",
-//    "vote_average":9.4,
-//    "vote_count":4}
+
 

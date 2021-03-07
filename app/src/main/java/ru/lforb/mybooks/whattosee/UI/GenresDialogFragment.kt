@@ -41,10 +41,7 @@ class GenresDialogFragment : DialogFragment() {
                     checkedItems[which] = isChecked
                 }
                 .setPositiveButton("Готово"
-                ) {
-                        dialog, id ->
-                    // User clicked OK, so save the selectedItems results somewhere
-
+                ) { dialog, id ->
                     if(viewModel.flag){
                         for (i in stringArray.indices) {
                             val checked = checkedItems[i]
@@ -69,12 +66,9 @@ class GenresDialogFragment : DialogFragment() {
                                         15 ->   "10752"
                                         16 ->  "37"
                                         else -> "35"
-
                                     }
                                 )
-
                                 genresBuilder.append(stringArray[i] + "  ")
-                                Log.i("Dialog", stringArray[i])
                             }
                         }
                         viewModel.genreChoice.postValue(genresBuilder.toString())
@@ -103,20 +97,13 @@ class GenresDialogFragment : DialogFragment() {
                                         15 ->   "10752"
                                         16 ->  "37"
                                         else -> "35"
-
                                     }
                                 )
-
                                 genresBuilder.append(stringArray[i] + "  ")
-                                Log.i("Dialog", stringArray[i])
                             }
                         }
                         viewModel.genreChoiceEx.postValue(genresBuilder.toString())
-                        Log.d("flag", viewModel.genreEx.toString())
                     }
-
-
-
                 }
                 .setNegativeButton("Отмена") {
                         dialog, _ ->  dialog.cancel()
