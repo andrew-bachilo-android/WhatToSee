@@ -37,7 +37,7 @@ class StartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnChooseMovie.setOnClickListener {
-            (activity as MainActivity).navController.navigate(R.id.action_startFragment_to_chooseMovieFragment)
+            (activity as MainActivity).navController.navigate(R.id.chooseMovieFragment)
         }
 
         binding.btnMyMovies.setOnClickListener {

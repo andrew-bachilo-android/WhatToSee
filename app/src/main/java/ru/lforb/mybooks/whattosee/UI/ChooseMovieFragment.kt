@@ -32,11 +32,6 @@ class ChooseMovieFragment : Fragment() {
     lateinit var navController: NavController
     lateinit var viewModel: MovieViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
