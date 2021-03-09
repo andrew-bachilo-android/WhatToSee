@@ -40,7 +40,7 @@ class GenresDialogFragment : DialogFragment() {
                 }
                 .setPositiveButton("Готово"
                 ) { dialog, id ->
-                    if(viewModel.flag){
+                    if(viewModel.genreFlag){
                         for (i in stringArray.indices) {
                             val checked = checkedItems[i]
                             if (checked) {
@@ -70,7 +70,6 @@ class GenresDialogFragment : DialogFragment() {
                             }
                         }
                         viewModel.genreChoice.postValue(genresBuilder.toString())
-                        Log.d("flag", viewModel.genre.toString())
                     }else{
                         for (i in stringArray.indices) {
                             val checked = checkedItems[i]

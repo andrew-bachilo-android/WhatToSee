@@ -51,19 +51,19 @@ class ChooseMovieFragment : Fragment() {
            if (i == R.id.movies_radio) {
                viewModel.movieType = "movie"
                binding.textGenreItems.text = ""
-               binding.textGenreItems2.text = ""
+               binding.textGenreItemsEx.text = ""
             }else{
                viewModel.movieType = "tv"
                binding.textGenreItems.text = ""
-               binding.textGenreItems2.text = ""
+               binding.textGenreItemsEx.text = ""
            }
         }
 
         // Dialog genre items
 
         binding.buttonAlertGenre.setOnClickListener {
-            viewModel.flag = true
-            Log.d("flag", viewModel.flag.toString())
+            viewModel.genreFlag = true
+            Log.d("flag", viewModel.genreFlag.toString())
             if (viewModel.movieType == "movie"){
                 val myDialogFragment = GenresDialogFragment()
                 val manager = (activity as MainActivity).supportFragmentManager
@@ -79,8 +79,8 @@ class ChooseMovieFragment : Fragment() {
         // Dialog without genres items
 
         binding.buttonAlertGenre2.setOnClickListener {
-            viewModel.flag = false
-            Log.d("flag", viewModel.flag.toString())
+            viewModel.genreFlag = false
+            Log.d("flag", viewModel.genreFlag.toString())
             if (viewModel.movieType == "movie"){
                 val myDialogFragment = GenresDialogFragment()
                 val manager = (activity as MainActivity).supportFragmentManager
@@ -90,7 +90,6 @@ class ChooseMovieFragment : Fragment() {
                 val manager = (activity as MainActivity).supportFragmentManager
                 myDialogFragment.show(manager, "myDialog2")
             }
-
         }
 
         //Spinner countries
@@ -140,7 +139,7 @@ class ChooseMovieFragment : Fragment() {
         })
 
         viewModel.genreChoiceEx.observe(activity as MainActivity, Observer {
-            binding.textGenreItems2.text = it.toString()
+            binding.textGenreItemsEx.text = it.toString()
         })
 
         binding.btnShowMovie.setOnClickListener {
@@ -154,7 +153,7 @@ class ChooseMovieFragment : Fragment() {
         viewModel.genre.clear()
         viewModel.genreEx.clear()
         binding.textGenreItems.text = ""
-        binding.textGenreItems2.text = ""
+        binding.textGenreItemsEx.text = ""
     }
 
 }

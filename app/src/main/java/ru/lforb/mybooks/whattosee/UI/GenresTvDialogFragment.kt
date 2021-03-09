@@ -39,7 +39,7 @@ class GenresTvDialogFragment : DialogFragment() {
                     checkedItems[which] = isChecked
                 }
                 .setPositiveButton("Готово") { dialog, id ->
-                    if(viewModel.flag){
+                    if(viewModel.genreFlag){
                         for (i in stringArray.indices) {
                             val checked = checkedItems[i]
                             if (checked) {

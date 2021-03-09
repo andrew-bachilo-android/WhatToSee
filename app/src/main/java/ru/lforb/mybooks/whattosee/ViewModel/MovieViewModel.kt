@@ -15,7 +15,7 @@ class MovieViewModel(val repository: Repository) : ViewModel() {
 
     var movieType = "movie"
 
-    var flag = true
+    var genreFlag = true
 
     var genre = mutableListOf<String>()
 
