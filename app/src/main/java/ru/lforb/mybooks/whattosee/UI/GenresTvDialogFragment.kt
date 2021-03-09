@@ -17,11 +17,8 @@ import java.lang.StringBuilder
 
 class GenresTvDialogFragment : DialogFragment() {
     lateinit var viewModel: MovieViewModel
-
-
     private val genresBuilder = StringBuilder()
     private val checkedItems = booleanArrayOf(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)
-
 
     override fun onCreateView(
         inflater: LayoutInflater,

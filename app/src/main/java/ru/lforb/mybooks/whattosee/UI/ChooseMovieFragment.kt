@@ -25,7 +25,6 @@ import ru.lforb.mybooks.whattosee.databinding.FragmentChooseMovieBinding
 import java.lang.StringBuilder
 import java.util.*
 
-
 class ChooseMovieFragment : Fragment() {
     private var _binding: FragmentChooseMovieBinding? = null
     private val binding get() = _binding!!
@@ -36,7 +35,6 @@ class ChooseMovieFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         viewModel = ViewModelProvider(activity as MainActivity).get(MovieViewModel::class.java)
         _binding = FragmentChooseMovieBinding.inflate(inflater, container, false)
         val view = binding.root
@@ -135,12 +133,8 @@ class ChooseMovieFragment : Fragment() {
                     else -> viewModel.year = "${parent.getItemAtPosition(position)}-01-01"
                 }
             }
-            override fun onNothingSelected(parent: AdapterView<*>){
-
-            }
+            override fun onNothingSelected(parent: AdapterView<*>){}
         }
-
-
         viewModel.genreChoice.observe(activity as MainActivity, Observer {
             binding.textGenreItems.text = it.toString()
         })

@@ -21,6 +21,7 @@ import ru.lforb.mybooks.whattosee.ViewModel.MovieViewModel
 import ru.lforb.mybooks.whattosee.ViewModel.MovieViewModelFactory
 import ru.lforb.mybooks.whattosee.databinding.ActivityMainBinding
 import javax.inject.Inject
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -28,10 +29,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var viewModel:MovieViewModel
     @Inject lateinit var factory:MovieViewModelFactory
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
@@ -40,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, binding.drawerLayout)
         binding.toolbar.setupWithNavController(navController,binding.drawerLayout)
         binding.navView.setupWithNavController(navController)
-
         viewModel = ViewModelProvider(this, factory).get(MovieViewModel::class.java)
 
         if(viewModel.favoriteMovie.isEmpty()){
@@ -49,13 +47,6 @@ class MainActivity : AppCompatActivity() {
         if(viewModel.favoriteTv.isEmpty()){
             viewModel.getAllTv()
         }
-
-
-
-    }
-
-    override fun onStart() {
-        super.onStart()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -68,10 +59,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         return NavigationUI.onNavDestinationSelected(item, navController) ||
                 super.onOptionsItemSelected(item)
     }
-
-
 }

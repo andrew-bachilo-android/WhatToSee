@@ -55,7 +55,6 @@ class MovieViewModel(val repository: Repository) : ViewModel() {
             val data = repository.getData(key, lang,   adult, video, page, year ,vote, genre, withoutGenre, withLang)
             Log.d("!!!", data.toString())
             movieLive.postValue(data)
-
         }
     }
 
@@ -64,7 +63,6 @@ class MovieViewModel(val repository: Repository) : ViewModel() {
             val data = repository.getTvData(key, lang, year, adult, video, page, vote, genre, withoutGenre, withLang)
             Log.d("!!!", data.toString())
             movieLive.postValue(data)
-
         }
     }
 

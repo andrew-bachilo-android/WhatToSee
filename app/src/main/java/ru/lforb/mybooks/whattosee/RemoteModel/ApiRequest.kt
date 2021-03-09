@@ -5,6 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
+
 val BASE_URL = "https://api.themoviedb.org/3/"
 interface ApiService {
     @GET("discover/movie")
@@ -19,7 +20,6 @@ interface ApiService {
         @Query("with_genres") genre: MutableList<String>,
         @Query("without_genres") withoutGenre: MutableList<String>,
         @Query("with_original_language") withLang: String
-
     ): MyMovie
 
     @GET("discover/tv")
@@ -34,9 +34,7 @@ interface ApiService {
         @Query("with_genres") genre: MutableList<String>,
         @Query("without_genres") withoutGenre: MutableList<String>,
         @Query("with_original_language") withLang: String
-
     ): MyMovie
-
 
     companion object Factory {
         fun create(): ApiService {

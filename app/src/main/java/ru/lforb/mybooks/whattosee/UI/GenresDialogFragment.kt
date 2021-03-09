@@ -17,8 +17,6 @@ import java.lang.StringBuilder
 
 class GenresDialogFragment : DialogFragment() {
     lateinit var viewModel: MovieViewModel
-
-
     private val genresBuilder = StringBuilder()
     private val checkedItems = booleanArrayOf(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)
 

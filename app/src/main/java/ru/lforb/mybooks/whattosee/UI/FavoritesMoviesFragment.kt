@@ -15,25 +15,17 @@ import ru.lforb.mybooks.whattosee.ViewModel.MovieViewModel
 import ru.lforb.mybooks.whattosee.databinding.FragmentFavoritesMoviesBinding
 import ru.lforb.mybooks.whattosee.databinding.FragmentStartBinding
 
-
 class FavoritesMoviesFragment : Fragment() {
     private var _binding: FragmentFavoritesMoviesBinding? = null
     private val binding get() = _binding!!
-
     lateinit var viewModel: MovieViewModel
     lateinit var navController: NavController
     lateinit var adapter: FavoriteAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         viewModel = ViewModelProvider(activity as MainActivity).get(MovieViewModel::class.java)
         _binding = FragmentFavoritesMoviesBinding.inflate(inflater, container, false)
         val view = binding.root
@@ -43,11 +35,8 @@ class FavoritesMoviesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = findNavController()
-
         adapter = FavoriteAdapter(viewModel.favoriteMovie)
         binding.recyclerFavoriteMovie.adapter = adapter
         binding.recyclerFavoriteMovie.layoutManager = GridLayoutManager(context,2)
     }
-
-
 }

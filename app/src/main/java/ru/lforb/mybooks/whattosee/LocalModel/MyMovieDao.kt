@@ -7,7 +7,6 @@ import ru.lforb.mybooks.whattosee.RemoteModel.Movie
 
 @Dao
 interface MyMovieDao {
-
     @Query("SELECT * FROM movies WHERE isMovie = 1")
     suspend fun getAllMovies():MutableList<Movie>
 

@@ -13,13 +13,11 @@ import ru.lforb.mybooks.whattosee.R
 import ru.lforb.mybooks.whattosee.RemoteModel.Movie
 import ru.lforb.mybooks.whattosee.RemoteModel.MyMovie
 
-
 class FavoriteAdapter (val list: MutableList<Movie>):RecyclerView.Adapter<FavoriteAdapter.ViewHolder>(){
     class ViewHolder (itemView: View):RecyclerView.ViewHolder(itemView){
         val photo = itemView.findViewById<ImageView>(R.id.fav_poster)
         val title = itemView.findViewById<TextView>(R.id.title_fav)
         val rating = itemView.findViewById<TextView>(R.id.rating_fav)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,7 +39,6 @@ class FavoriteAdapter (val list: MutableList<Movie>):RecyclerView.Adapter<Favori
             holder.title.text = list[position].name
         }
         holder.rating.text = list[position].vote_average.toString()
-
     }
 
     override fun getItemCount(): Int {

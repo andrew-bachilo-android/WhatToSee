@@ -11,23 +11,14 @@ import ru.lforb.mybooks.whattosee.MainActivity
 import ru.lforb.mybooks.whattosee.R
 import ru.lforb.mybooks.whattosee.databinding.FragmentStartBinding
 
-
 class StartFragment : Fragment() {
     private var _binding: FragmentStartBinding? = null
     private val binding get() = _binding!!
-
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = FragmentStartBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
@@ -44,10 +35,5 @@ class StartFragment : Fragment() {
             (activity as MainActivity).navController.navigate(R.id.favoritesFragment)
 
         }
-
     }
-
-
-
-
 }
